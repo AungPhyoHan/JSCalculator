@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JS CALCULATOR</title>
+	<style>
+		#layout{
+			margin-left:50%;
+		}
+		#layout table button
+		{
+			width:50px;
+		
+	</style>
+</head>
+<body>
+<div id="layout" size="3">
+	<text id="result"></text>
+	<table>
+		<caption>My Calculator</caption>
+			<tr>
+				<td colspan="4"><text id="last_output"></text></td>
+			</tr>
+			<tr>
+				<td colspan="4"><textarea id="record" style="width:100%"></textarea></td>
+			</tr>
+			<tr>
+				<td><button type="button" id="plus" onclick="arithematic(1);">+</button></td>
+				<td><button type="button" id="minus" onclick="arithematic(2);">-</button></td>
+				<td><button type="button" id="multiply" onclick="arithematic(3);">*</button></td>
+				<td><button type="button" id="divide" onclick="arithematic(4);">/</button></td>
+			</tr>
+			<tr>
+				<td><button type="button" onclick="inputNumber('9')">9</button></td>
+				<td><button type="button" onclick="inputNumber('8')">8</button></td>
+				<td><button type="button" onclick="inputNumber('7')">7</button></td>
+				<td rowspan="2"><button type="button" style="height:50px" onclick="outputNumber()">Enter</button></td>
+			</tr>
+			<tr>
+				<td><button type="button" onclick="inputNumber('6')">6</button></td>
+				<td><button type="button" onclick="inputNumber('5')">5</button></td>
+				<td><button type="button" onclick="inputNumber('4')">4</button></td>
+			</tr>
+			<tr>
+				<td><button type="button" onclick="inputNumber('3')">3</button></td>
+				<td><button type="button" onclick="inputNumber('2')">2</button></td>
+				<td><button type="button" onclick="inputNumber('1')">1</button></td>
+				<td><button type="button" onclick="inputNumber('0')">0</button></td>
+			</tr>
+	</table>
+</div>
+<script type="text/javascript">
+	let my_operator = "";
+	let output = "";
+	let last_record="";
+	let record = "";
+	function outputNumber()
+	{
+		switch(my_operator)
+		{
+			case 1:
+				last_record = Number(last_record)+Number(record);
+			break;
+			case 2:
+				last_record = Number(last_record)-Number(record);
+			break;
+			case 3:
+				last_record = Number(last_record)*Number(record);
+			break;
+			case 4:
+				if(Number(record)==0)
+				{
+					alert("Base Number can't be zero");
+				}else{
+					last_record = Number(last_record)/Number(record);
+				}
+			break;
+			default:
+			break;
+		}
+		output = "";
+		document.getElementById("last_output").innerHTML = "";
+		record = "";
+		document.getElementById("record").innerHTML = "";
+		my_operator = "";
+		document.getElementById("result").innerHTML = last_record;
+		last_record = "";
+	}
+	function inputNumber(number)
+	{
+		record += number;
+		output += number;
+		document.getElementById("record").innerHTML = record;
+		document.getElementById("result").innerHTML = "";
+	}
+	function arithematic(operator){
+		if(record != 0)
+		{
+			if(last_record == "")
+		{
+			last_record = record;
+			{
+				let txt = "";
+				switch(operator){
+					case 1:
+						txt = "+";
+					break;
+					case 2:
+						txt = "-";
+					break;
+					case 3:
+						txt = "*";
+					break;
+					case 4:
+						txt = "/";
+					break;
+				}
+				output += txt;
+				document.getElementById("last_output").innerHTML = output;
+			}
+			my_operator = operator;
+			record = "";
+			document.getElementById("record").innerHTML="";
+		}else{
+			switch(my_operator)
+			{
+				case 1:
+					last_record = Number(last_record)+Number(record);
+				break;
+				case 2:
+					last_record = Number(last_record)-Number(record);
+				break;
+				case 3:
+					last_record = Number(last_record)*Number(record);
+				break;
+				case 4:
+					if(Number(record)==0)
+					{
+						alert("Base Number can't be zero");
+					}else{
+						last_record = Number(last_record)/Number(record);
+					}
+				break;
+				default:
+				break;
+			}
+			my_operator = operator;
+			record = "";
+			document.getElementById("record").innerHTML="";
+			{
+				let txt = "";
+				switch(operator){
+					case 1:
+						txt = "+";
+					break;
+					case 2:
+						txt = "-";
+					break;
+					case 3:
+						txt = "*";
+					break;
+					case 4:
+						txt = "/";
+					break;
+				}
+				output += txt;
+				document.getElementById("last_output").innerHTML = output;
+			}
+		}
+		}
+		
+	}
+</script>
+</body>
+</html>
