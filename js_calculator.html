@@ -138,13 +138,14 @@
 		document.getElementById("record").innerHTML = "";
 		if(last_record == undefined)
 		{
-			document.getElementById("result").innerHTML = record;
+			document.getElementById("record").innerHTML = record;
+			last_record = record;
 		}else{
-			document.getElementById("result").innerHTML = last_record;
+			document.getElementById("record").innerHTML = last_record;
 		}
 		my_operator = "";
-		record="";
-		output="";
+		record=last_record;
+		output=record;
 		last_record = 0;
 	}
 
