@@ -6,48 +6,117 @@
 	<meta author="AungPhyoHan">
 	<title>JS CALCULATOR</title>
 	<style>
+		body
+		{
+			background-color:#353535;
+		}
 		#layout{
-			margin-left:50%;
+			width:230px;
+			margin-top:10%;
+			margin-left:45%;
+		}
+		#layout table
+		{
+			border:solid 1px white;
+			border-collapse: collapse;
+		}
+		#layout table caption
+		{
+			color:white;
+			font-size:25px;
+			line-height: 50px;
 		}
 		#layout table button
 		{
 			width:50px;
 		}
+		#layout #clearbtn
+		{
+			width:100%;
+			background-color: maroon;
+			border:none;
+			color:white;
+		}
+		#layout #clearbtn:hover
+		{
+			background-color:red;
+		}
+		#layout #arithem
+		{
+			background-color:green;
+			border:none;
+			color:white;
+			font-size:15px;
+		}
+		#layout #arithem:hover
+		{
+			background-color:teal;
+		}
+		#layout #number
+		{
+			font-size:15px;
+		}
+		#layout #enter
+		{
+			height:50px;
+			background-color:orange;
+			border:none;
+		}
+		#layout #enter:hover
+		{
+			background-color:yellow;
+		}
+		#layout #result
+		{
+			font-size: 30px;
+			color:white;
+		}
+		#layout #last_output
+		{
+			color:white;
+		}
+		textarea{
+			font-size:18px;
+		}
 	</style>
 </head>
 <body>
-<div id="layout" size="3">
-	<text id="result"></text>
+<div id="layout">
+	<center><text id="result"></text></center>
 	<table>
 		<caption>My Calculator</caption>
 			<tr>
 				<td colspan="4"><text id="last_output"></text></td>
 			</tr>
 			<tr>
-				<td colspan="4"><textarea id="record" style="width:100%"></textarea></td>
+				<td colspan="4"><textarea id="record" style="width:96%" ></textarea></td>
 			</tr>
 			<tr>
-				<td><button type="button" id="plus" onclick="arithematic(1);">+</button></td>
-				<td><button type="button" id="minus" onclick="arithematic(2);">-</button></td>
-				<td><button type="button" id="multiply" onclick="arithematic(3);">*</button></td>
-				<td><button type="button" id="divide" onclick="arithematic(4);">/</button></td>
+				<td colspan="2"><button type="button" id="clearbtn" onclick="clearAllNumbers();">C</button></td>
+				<td colspan="2"><button type="button" id="clearbtn" onclick="clearNumbers();">CE</button></td>
 			</tr>
 			<tr>
-				<td><button type="button" onclick="inputNumber('9')">9</button></td>
-				<td><button type="button" onclick="inputNumber('8')">8</button></td>
-				<td><button type="button" onclick="inputNumber('7')">7</button></td>
-				<td rowspan="2"><button type="button" style="height:50px" onclick="outputNumber()">Enter</button></td>
+				<td><button type="button" id="arithem" onclick="arithematic(1);">+</button></td>
+				<td><button type="button" id="arithem" onclick="arithematic(2);">-</button></td>
+				<td><button type="button" id="arithem" onclick="arithematic(3);">*</button></td>
+				<td><button type="button" id="arithem" onclick="arithematic(4);">/</button></td>
 			</tr>
 			<tr>
-				<td><button type="button" onclick="inputNumber('6')">6</button></td>
-				<td><button type="button" onclick="inputNumber('5')">5</button></td>
-				<td><button type="button" onclick="inputNumber('4')">4</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('9')">9</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('8')">8</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('7')">7</button></td>
+				<td rowspan="2"><button type="button" id="enter" onclick="outputNumber()">Enter</button></td>
 			</tr>
 			<tr>
-				<td><button type="button" onclick="inputNumber('3')">3</button></td>
-				<td><button type="button" onclick="inputNumber('2')">2</button></td>
-				<td><button type="button" onclick="inputNumber('1')">1</button></td>
-				<td><button type="button" onclick="inputNumber('0')">0</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('6')">6</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('5')">5</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('4')">4</button></td>
+			</tr>
+			<tr>
+				<td><button type="button" id="number" onclick="inputNumber('3')">3</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('2')">2</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('1')">1</button></td>
+				<td><button type="button" id="number" onclick="inputNumber('0')">0</button></td>
 			</tr>
 	</table>
 </div>
@@ -65,12 +134,17 @@
 	function outputNumber()
 	{
 		last_record = calculateNumbers(my_operator);
-		output = "";
 		document.getElementById("last_output").innerHTML = "";
-		record = "";
 		document.getElementById("record").innerHTML = "";
+		if(last_record == undefined)
+		{
+			document.getElementById("result").innerHTML = record;
+		}else{
+			document.getElementById("result").innerHTML = last_record;
+		}
 		my_operator = "";
-		document.getElementById("result").innerHTML = last_record;
+		record="";
+		output="";
 		last_record = 0;
 	}
 
@@ -158,6 +232,26 @@
 				return "/";
 			break;
 		}
+	}
+
+// all clear numbers and value
+	function clearAllNumbers()
+	{
+		my_operator = "";
+		record="";
+		output="";
+		last_record = 0;
+		document.getElementById("last_output").innerHTML = "";
+		document.getElementById("record").innerHTML = "";
+		document.getElementById("result").innerHTML = "";
+	}
+
+// clear only record in textarea
+	function clearNumbers()
+	{
+		record="";
+		output="";
+		document.getElementById("record").innerHTML = "";
 	}
 </script>
 </body>
