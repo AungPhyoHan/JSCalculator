@@ -99,7 +99,7 @@
 				<td><button type="button" id="number" onclick="inputNumber('9')">9</button></td>
 				<td><button type="button" id="number" onclick="inputNumber('8')">8</button></td>
 				<td><button type="button" id="number" onclick="inputNumber('7')">7</button></td>
-				<td rowspan="2"><button type="button" id="enter" onclick="outputNumber()">Enter</button></td>
+				<td rowspan="2"><button type="button" id="enter" onclick="outputNumber()">=</button></td>
 			</tr>
 			<tr>
 				<td><button type="button" id="number" onclick="inputNumber('6')">6</button></td>
@@ -124,7 +124,7 @@
 // save numbers in textarea
 	let record = "";
 
-// when clicking "Enter" button,show latest-calculated-result
+// when clicking "=" button,show latest-calculated-result
 	function outputNumber()
 	{
 		last_record = calculateNumbers(my_operator);
