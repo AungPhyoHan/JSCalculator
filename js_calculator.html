@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta author="AungPhyoHan">
 	<title>JS CALCULATOR</title>
 	<style>
 		#layout{
@@ -51,42 +52,29 @@
 	</table>
 </div>
 <script type="text/javascript">
+// note previous opcode
 	let my_operator = "";
+// note previous oparam and opcode for show
 	let output = "";
-	let last_record="";
+// save latest calculated number
+	let last_record=0;
+// save numbers in textarea
 	let record = "";
+
+// when clicking "Enter" button,show final calculated-result
 	function outputNumber()
 	{
-		switch(my_operator)
-		{
-			case 1:
-				last_record = Number(last_record)+Number(record);
-			break;
-			case 2:
-				last_record = Number(last_record)-Number(record);
-			break;
-			case 3:
-				last_record = Number(last_record)*Number(record);
-			break;
-			case 4:
-				if(Number(record)==0)
-				{
-					alert("Base Number can't be zero");
-				}else{
-					last_record = Number(last_record)/Number(record);
-				}
-			break;
-			default:
-			break;
-		}
+		last_record = calculateNumbers(my_operator);
 		output = "";
 		document.getElementById("last_output").innerHTML = "";
 		record = "";
 		document.getElementById("record").innerHTML = "";
 		my_operator = "";
 		document.getElementById("result").innerHTML = last_record;
-		last_record = "";
+		last_record = 0;
 	}
+
+// number input to textarea,0 to 9
 	function inputNumber(number)
 	{
 		record += number;
@@ -94,82 +82,82 @@
 		document.getElementById("record").innerHTML = record;
 		document.getElementById("result").innerHTML = "";
 	}
+
+// calculation
 	function arithematic(operator){
-		if(record != 0)
+		if(record != "")
 		{
 			if(last_record == "")
-		{
-			last_record = record;
 			{
-				let txt = "";
-				switch(operator){
-					case 1:
-						txt = "+";
-					break;
-					case 2:
-						txt = "-";
-					break;
-					case 3:
-						txt = "*";
-					break;
-					case 4:
-						txt = "/";
-					break;
+				last_record = record;
+				{
+					let txt = setOperator(operator);
+					output += txt;
+					document.getElementById("last_output").innerHTML = output;
 				}
-				output += txt;
-				document.getElementById("last_output").innerHTML = output;
-			}
 			my_operator = operator;
 			record = "";
 			document.getElementById("record").innerHTML="";
 		}else{
-			switch(my_operator)
-			{
-				case 1:
-					last_record = Number(last_record)+Number(record);
-				break;
-				case 2:
-					last_record = Number(last_record)-Number(record);
-				break;
-				case 3:
-					last_record = Number(last_record)*Number(record);
-				break;
-				case 4:
-					if(Number(record)==0)
-					{
-						alert("Base Number can't be zero");
-					}else{
-						last_record = Number(last_record)/Number(record);
-					}
-				break;
-				default:
-				break;
-			}
+			last_record = calculateNumbers(my_operator);
 			my_operator = operator;
 			record = "";
 			document.getElementById("record").innerHTML="";
 			{
-				let txt = "";
-				switch(operator){
-					case 1:
-						txt = "+";
-					break;
-					case 2:
-						txt = "-";
-					break;
-					case 3:
-						txt = "*";
-					break;
-					case 4:
-						txt = "/";
-					break;
-				}
+				let txt = setOperator(operator);
 				output += txt;
 				document.getElementById("last_output").innerHTML = output;
 			}
 		}
 		}
 		
+	}
+
+// based on previous opcode, calculate numbers
+	function calculateNumbers(opcode)
+	{
+		switch(my_operator)
+		{
+			case 1:
+				return Number(last_record)+Number(record);
+			break;
+			case 2:
+				return Number(last_record)-Number(record);
+			break;
+			case 3:
+				return Number(last_record)*Number(record);
+			break;
+			case 4:
+				if(Number(record)==0)
+				{
+					alert("Base Number can't be zero");
+				}else{
+					return Number(last_record)/Number(record);
+				}
+			break;
+			default:
+				return ;
+			break;
+			}
+	}
+
+// for show, opcode convert to string
+	function setOperator(opcode)
+	{
+		switch(opcode){
+			case 1:
+				return "+";
+			break;
+			case 2:
+				return "-";
+			break;
+			case 3:
+				return "*";
+			break;
+			case 4:
+				return "/";
+			break;
+		}
 	}
 </script>
 </body>
